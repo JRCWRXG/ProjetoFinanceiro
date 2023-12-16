@@ -1,4 +1,5 @@
 using ProjetoFinanceiro.Infrastructure.Repositories;
+using ProjetoFinanceiro.Services.Service;
 
 namespace ProjetoFinanceiro.Api
 {
@@ -16,6 +17,7 @@ namespace ProjetoFinanceiro.Api
             builder.Services.AddSwaggerGen();
 
             builder.Services.AddScoped<IClienteRepository, ClienteRepository>();
+            builder.Services.AddScoped<ClienteService>();
 
             var app = builder.Build();
 

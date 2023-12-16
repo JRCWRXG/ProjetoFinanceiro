@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
@@ -10,6 +10,7 @@
   <ItemGroup>
     <ProjectReference Include="..\ProjetoFinanceiro.Domain\ProjetoFinanceiro.Domain.csproj" />
     <ProjectReference Include="..\ProjetoFinanceiro.Infrastructure\ProjetoFinanceiro.Infrastructure.csproj" />
+    <ProjectReference Include="..\ProjetoFinanceiro.Services\ProjetoFinanceiro.Services.csproj" />
   </ItemGroup>
 
 	<ItemGroup>
