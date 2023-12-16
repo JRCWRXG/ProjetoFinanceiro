@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using ProjetoFinanceiro.Testes.Extensions;
+using ProjetoFinanceiro.Testes.Principal;
 
 namespace ProjetoFinanceiro.Testes
 {

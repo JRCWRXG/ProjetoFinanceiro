@@ -2,6 +2,9 @@
 using Microsoft.Extensions.DependencyInjection;
 using ProjetoFinanceiro.Infrastructure.Repositories;
 using ProjetoFinanceiro.Services.Service;
+using ProjetoFinanceiro.Testes.Principal;
+using ProjetoFinanceiro.Testes.Repositories;
+using ProjetoFinanceiro.Testes.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,6 +29,7 @@ namespace ProjetoFinanceiro.Testes.Extensions
             services.AddScoped<IClienteRepository, ClienteRepository>();
             services.AddScoped<RepositorioTeste>();
             services.AddScoped<ClienteService>();
+            services.AddScoped<ServicoTeste>();
         }
 
         private static IConfiguration GetConfiguration()

@@ -1,12 +1,13 @@
 ﻿using ProjetoFinanceiro.Domain.Entities;
 using ProjetoFinanceiro.Infrastructure.Repositories;
+using ProjetoFinanceiro.Testes.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProjetoFinanceiro.Testes
+namespace ProjetoFinanceiro.Testes.Repositories
 {
     public class RepositorioTeste
     {
@@ -33,7 +34,7 @@ namespace ProjetoFinanceiro.Testes
 
                 throw ex;
             }
-            
+
         }
 
         private void ValidarListagemClientes()
@@ -55,13 +56,18 @@ namespace ProjetoFinanceiro.Testes
 
         private void ValidarCadastroCliente()
         {
-            int Id = 99;
-            Cliente cliente = new Cliente
-            {
-                Clienteid = Id,
-                Nome = "Spider",
-                Cpf = "1234"
-            };
+            //int Id = 99;
+
+            Cliente cliente = ClienteFactory.GetNovoCliente();
+            int Id = cliente.Clienteid;
+          
+            
+            //Cliente cliente = new Cliente
+            //{
+            //    Clienteid = Id,
+            //    Nome = "Spider",
+            //    Cpf = "1234"
+            //};
 
             _clienteRepository.Salvar(cliente);
 
@@ -71,7 +77,7 @@ namespace ProjetoFinanceiro.Testes
 
         private void ValidarAtualizaçãoCliente()
         {
-            int Id = 99;
+            int Id = 1;
             Cliente cliente = _clienteRepository.Pesquisar(Id);
             cliente.Nome = "Batman";
             _clienteRepository.Atualizar(cliente);

@@ -1,13 +1,14 @@
 ﻿using ProjetoFinanceiro.Domain.Entities;
 using ProjetoFinanceiro.Infrastructure.Repositories;
 using ProjetoFinanceiro.Services.Service;
+using ProjetoFinanceiro.Testes.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProjetoFinanceiro.Testes
+namespace ProjetoFinanceiro.Testes.Services
 {
     public class ServicoTeste
     {
@@ -41,6 +42,8 @@ namespace ProjetoFinanceiro.Testes
 
         private void ValidarListagemClientes()
         {
+            Console.WriteLine("\nTeste camada serviço: ValidarListagemClientes");
+
             List<Cliente> clientes = _clienteService.Listar();
 
             foreach (Cliente Cliente in clientes)
@@ -51,20 +54,29 @@ namespace ProjetoFinanceiro.Testes
 
         private void ValidarPesquisaCliente()
         {
-            int id = 1;
+            Console.WriteLine("\nTeste camada serviço: ValidarPesquisaCliente");
+
+            int id = 2;
             Cliente Cliente = _clienteService.Pesquisar(id);
             Console.WriteLine($"Id: {Cliente.Clienteid}, Nome: {Cliente.Nome}");
         }
 
         private void ValidarCadastroCliente()
         {
-            int Id = 99;
-            Cliente cliente = new Cliente
-            {
-                Clienteid = Id,
-                Nome = "Spider",
-                Cpf = "1234"
-            };
+            Console.WriteLine("\nTeste camada serviço: ValidarCadastroCliente");
+
+            Cliente cliente = ClienteFactory.GetNovoCliente();
+            int Id = cliente.Clienteid;
+
+
+
+            //int Id = 99;
+            //Cliente cliente = new Cliente
+            //{
+            //    Clienteid = Id,
+            //    Nome = "Spider",
+            //    Cpf = "1234"
+            //};
 
             _clienteService.Salvar(cliente);
 
@@ -74,7 +86,9 @@ namespace ProjetoFinanceiro.Testes
 
         private void ValidarAtualizaçãoCliente()
         {
-            int Id = 99;
+            Console.WriteLine("\nTeste camada serviço: ValidarAtualizaçãoCliente");
+
+            int Id = 5;
             Cliente cliente = _clienteService.Pesquisar(Id);
             cliente.Nome = "Batman";
             _clienteService.Atualizar(cliente);
@@ -85,6 +99,7 @@ namespace ProjetoFinanceiro.Testes
 
         private void ValidarExclusaoCliente()
         {
+            Console.WriteLine("\nTeste camada serviço: ValidarExclusaoCliente");
             int Id = 1;
             _clienteService.Excluir(Id);
             Cliente objPesquisa = _clienteService.Pesquisar(Id);

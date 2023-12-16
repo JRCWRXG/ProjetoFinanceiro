@@ -1,12 +1,13 @@
 ﻿using ProjetoFinanceiro.Domain.Entities;
 using ProjetoFinanceiro.Infrastructure.Contexts;
+using ProjetoFinanceiro.Testes.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProjetoFinanceiro.Testes
+namespace ProjetoFinanceiro.Testes.Contexts
 {
     public class FakeContextTeste
     {
@@ -36,14 +37,15 @@ namespace ProjetoFinanceiro.Testes
 
         private void TestarInclusao()
         {
-            Cliente cliente = new Cliente
-            {
-                Clienteid = 10,
-                Nome = "Roberto",
-                Cpf = "1234"
-            };
+            Cliente cliente = ClienteFactory.GetNovoCliente();
+            //Cliente cliente = new Cliente
+            //{
+            //    Clienteid = 10,
+            //    Nome = "Roberto",
+            //    Cpf = "1234"
+            //};
 
-            _context.CreateCliente( cliente );
+            _context.CreateCliente(cliente);
             _context.ReadCliente(cliente.Clienteid);
         }
     }
