@@ -79,6 +79,45 @@ namespace ProjetoFinanceiro.Api.Controllers
                 throw ex;
             }
         }
+        [HttpPut]
+        public string Put([FromBody]ClienteDto clienteDto) 
+        {
+            try
+            {
+                Cliente cliente = clienteDto.ConverterParaEntidade();
+                _clienteService.Salvar(cliente);
+
+
+                return $"Cliente {cliente.Nome} atualizado com sucesso, id  {cliente.Clienteid}";
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
+
+
+        [HttpDelete]
+        [Route("{id}")]
+        public string Delete(int id)
+        {
+            try
+            {
+              
+                _clienteService.Excluir(id);
+
+
+                return $"Cliente Excluido com sucesso, id {id} ";
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
+
+
 
         //public string Get()
         //{
