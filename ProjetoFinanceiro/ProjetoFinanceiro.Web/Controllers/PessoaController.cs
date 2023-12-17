@@ -120,5 +120,13 @@ namespace ProjetoFinanceiro.Web.Controllers
             return RedirectToAction("Listar");
         }
 
+        [HttpGet]
+        public IActionResult Details(string id)
+        {
+            PessoaDto pessoa = _pessoas.FirstOrDefault(p => p.Id.Equals(id));
+
+            return View(pessoa);
+        }
+
     }
 }
