@@ -45,6 +45,7 @@ namespace ProjetoFinanceiro.Infrastructure.Repositories
 
         public void Salvar(Cliente cliente)
         {
+            cliente.Clienteid = _context.NextId();  
            _context.CreateCliente(cliente); 
         }
     }

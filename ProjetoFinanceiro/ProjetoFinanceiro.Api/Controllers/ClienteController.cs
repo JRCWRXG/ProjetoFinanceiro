@@ -37,6 +37,49 @@ namespace ProjetoFinanceiro.Api.Controllers
             }
         }
 
+
+        [HttpGet]
+        [Route("{Id}")]
+        public ClienteDto Get(int Id)
+        {
+            try
+            {
+                Cliente cliente = _clienteService.Pesquisar(Id);
+                 ClienteDto clienteDto = cliente != null ? cliente.ConverterParaDto() : null;
+
+                //ClienteDto clienteDto = null;
+                //if (clienteDto != null) 
+                //{
+                //    clienteDto = cliente.ConverterParaDto();
+                //}
+
+                return clienteDto;
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
+
+        [HttpPost]
+        public string Post([Bind("Nome, cpf")]ClienteDto clienteDto)
+        {
+            try
+            {
+                Cliente cliente = clienteDto.ConverterParaEntidade();
+                _clienteService.Salvar(cliente);
+
+                return $"Cliente {cliente.Nome} cadastrado com sucesso, id  {cliente.Clienteid}";
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
+
         //public string Get()
         //{
         //    return "A aplicacao esta funcionando!";

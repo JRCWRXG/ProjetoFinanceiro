@@ -16,7 +16,7 @@ namespace ProjetoFinanceiro.Api
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
-            builder.Services.AddScoped<IClienteRepository, ClienteRepository>();
+            builder.Services.AddSingleton<IClienteRepository, ClienteRepository>();
             builder.Services.AddScoped<ClienteService>();
 
             var app = builder.Build();

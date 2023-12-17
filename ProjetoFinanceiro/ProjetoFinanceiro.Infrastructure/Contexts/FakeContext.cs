@@ -110,5 +110,13 @@ namespace ProjetoFinanceiro.Infrastructure.Contexts
             };
             _clientes.Add(cliente);
         }
+
+        public int NextId()
+        {
+            int id = _clientes.Max(p => p.Clienteid);
+            id++;   
+
+            return id;
+        }
     }
 }
