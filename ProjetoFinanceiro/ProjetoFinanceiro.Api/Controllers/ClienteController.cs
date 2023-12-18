@@ -26,7 +26,7 @@ namespace ProjetoFinanceiro.Api.Controllers
         #endregion
 
 
-        #region Metodos
+        #region Actions
         [HttpGet]
         public List<ClienteDto> Get()
         {

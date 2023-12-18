@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using ProjetoFinanceiro.Web.Models;
+using System.Text;
 
 namespace ProjetoFinanceiro.Web.Controllers
 {
@@ -58,6 +59,39 @@ namespace ProjetoFinanceiro.Web.Controllers
                 throw ex;
             }
         
+        }
+
+        public IActionResult Create()
+        { 
+        return View();  
+        }
+
+
+        [HttpPost]
+        public async Task <IActionResult> Create([Bind("Nome, Cpf")]ClienteViewModel cliente)
+        {
+            try
+            {
+                string json = JsonConvert.SerializeObject(cliente);
+                byte[] buffer = Encoding.UTF8.GetBytes(json);
+                ByteArrayContent byteArrayContent = new ByteArrayContent(buffer); 
+                byteArrayContent.Headers.ContentType = 
+                    new System.Net.Http.Headers.MediaTypeHeaderValue("application/json");
+
+                string url = ENDPOINT;  
+                HttpResponseMessage response =
+                    await _httpClient.PostAsync(url, byteArrayContent);
+
+                if (!response.IsSuccessStatusCode)
+                    ModelState.AddModelError(null, "Erro ao processar a solicitacao");
+
+                    return RedirectToAction("Index");
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
         }
         private async Task<ClienteViewModel> Pesquisar(int id)
         {
