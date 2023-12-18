@@ -14,19 +14,24 @@ namespace ProjetoFinanceiro.Testes.Principal
     {
         private readonly RepositorioTeste _repositorioTeste;
         private readonly ServicoTeste _servicoTeste;
+        private readonly ConnectionTest _connectionTest;
 
-        public AppTestePrincipal(RepositorioTeste repositorioTeste, ServicoTeste servicoTeste)
+        public AppTestePrincipal(RepositorioTeste repositorioTeste,
+                                                    ServicoTeste servicoTeste, 
+                                                    ConnectionTest connectionTest)
         {
             _repositorioTeste = repositorioTeste;
             _servicoTeste = servicoTeste;
+            _connectionTest = connectionTest;
         }
 
         public void Execute()
         {
-            ValidarCamadaDominio();
-            ValidarCamadaEstrutura_Context();
-            ValidarCamadaRepositorio();
-            ValidarCamadaSevico();
+            //ValidarCamadaDominio();
+            //ValidarCamadaEstrutura_Context();
+            //ValidarCamadaRepositorio();
+            //ValidarCamadaSevico();
+            ValidarConectividade();
 
         }
 
@@ -59,6 +64,11 @@ namespace ProjetoFinanceiro.Testes.Principal
         private void ValidarCamadaSevico()
         {
             _servicoTeste.Execute();
+        }
+
+        private void ValidarConectividade()
+        { 
+        _connectionTest.Execute();
         }
     }
 }

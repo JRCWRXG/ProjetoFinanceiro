@@ -9,11 +9,15 @@ namespace ProjetoFinanceiro.Web.Controllers
 {
     public class ClienteController : Controller
     {
-        private readonly string ENDPOINT = "http://localhost:5025/api/cliente/";
+        private readonly string ENDPOINT = "";
         private readonly HttpClient _httpClient = null;
+        private readonly IConfiguration _configuration;
 
-        public ClienteController()
+        public ClienteController(IConfiguration configuration)
         {
+            _configuration = configuration;
+            ENDPOINT = _configuration["WebConfig:Endpoints:Url_Api"];
+
             _httpClient = new HttpClient();
             _httpClient.BaseAddress = new Uri(ENDPOINT);
         }

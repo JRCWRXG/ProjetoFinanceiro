@@ -1,3 +1,5 @@
+using Microsoft.Extensions.Options;
+using ProjetoFinanceiro.Domain.Configuration;
 using ProjetoFinanceiro.Infrastructure.Repositories;
 using ProjetoFinanceiro.Services.Service;
 
@@ -16,8 +18,16 @@ namespace ProjetoFinanceiro.Api
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
+
+
             builder.Services.AddSingleton<IClienteRepository, ClienteRepository>();
             builder.Services.AddScoped<ClienteService>();
+
+           
+
+            builder.Services.Configure<ApiConfig>(builder.Configuration.GetSection(nameof(ApiConfig))); 
+            builder.Services.AddSingleton<IApiConfig>(x => 
+                x.GetRequiredService<IOptions<ApiConfig>>().Value);
 
             var app = builder.Build();
 

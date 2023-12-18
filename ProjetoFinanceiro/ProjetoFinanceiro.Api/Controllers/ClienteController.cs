@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using ProjetoFinanceiro.Domain.Configuration;
 using ProjetoFinanceiro.Domain.Dtos;
 using ProjetoFinanceiro.Domain.Entities;
 using ProjetoFinanceiro.Services.Service;
@@ -13,14 +14,16 @@ namespace ProjetoFinanceiro.Api.Controllers
     {
         #region Propriedades
         private readonly ClienteService _clienteService;
+        private readonly IApiConfig _config;
 
         #endregion
 
 
         #region Construtores
-        public ClienteController(ClienteService clienteService)
+        public ClienteController(ClienteService clienteService, IApiConfig _config)
         {
             _clienteService = clienteService;
+            this._config = _config;
         }
 
         #endregion
