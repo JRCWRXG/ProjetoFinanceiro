@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using ProjetoFinanceiro.Web.Models;
+using System.Net.Http;
+using System.Security.Policy;
 using System.Text;
 
 namespace ProjetoFinanceiro.Web.Controllers
@@ -26,8 +28,8 @@ namespace ProjetoFinanceiro.Web.Controllers
                 HttpResponseMessage response = await _httpClient.GetAsync(ENDPOINT);
                 if (response.IsSuccessStatusCode)
                 {
-                    string content = await response.Content.ReadAsStringAsync(); 
-                  clientes = JsonConvert.DeserializeObject<List<ClienteViewModel>>(content);   
+                    string content = await response.Content.ReadAsStringAsync();
+                    clientes = JsonConvert.DeserializeObject<List<ClienteViewModel>>(content);
                 }
                 else
                 {
@@ -50,7 +52,7 @@ namespace ProjetoFinanceiro.Web.Controllers
             try
             {
                 ClienteViewModel result = await Pesquisar(id);
-                
+
                 return View(result);
             }
             catch (Exception ex)
@@ -58,34 +60,34 @@ namespace ProjetoFinanceiro.Web.Controllers
 
                 throw ex;
             }
-        
+
         }
 
         public IActionResult Create()
-        { 
-        return View();  
+        {
+            return View();
         }
 
 
         [HttpPost]
-        public async Task <IActionResult> Create([Bind("Nome, Cpf")]ClienteViewModel cliente)
+        public async Task<IActionResult> Create([Bind("Nome, Cpf")] ClienteViewModel cliente)
         {
             try
             {
                 string json = JsonConvert.SerializeObject(cliente);
                 byte[] buffer = Encoding.UTF8.GetBytes(json);
-                ByteArrayContent byteArrayContent = new ByteArrayContent(buffer); 
-                byteArrayContent.Headers.ContentType = 
+                ByteArrayContent byteArrayContent = new ByteArrayContent(buffer);
+                byteArrayContent.Headers.ContentType =
                     new System.Net.Http.Headers.MediaTypeHeaderValue("application/json");
 
-                string url = ENDPOINT;  
+                string url = ENDPOINT;
                 HttpResponseMessage response =
                     await _httpClient.PostAsync(url, byteArrayContent);
 
                 if (!response.IsSuccessStatusCode)
                     ModelState.AddModelError(null, "Erro ao processar a solicitacao");
 
-                    return RedirectToAction("Index");
+                return RedirectToAction("Index");
             }
             catch (Exception ex)
             {
@@ -93,6 +95,73 @@ namespace ProjetoFinanceiro.Web.Controllers
                 throw ex;
             }
         }
+
+
+        public async Task<IActionResult> Edit(int id)
+        {
+            ClienteViewModel cliente = await Pesquisar(id);
+
+            return View(cliente);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit([Bind("ClienteId, Nome, Cpf")] ClienteViewModel cliente)
+        {
+            try
+            {
+                string json = JsonConvert.SerializeObject(cliente);
+                byte[] buffer = Encoding.UTF8.GetBytes(json);
+                ByteArrayContent byteArrayContent = new ByteArrayContent(buffer);
+                byteArrayContent.Headers.ContentType =
+                    new System.Net.Http.Headers.MediaTypeHeaderValue("application/json");
+
+                string url = ENDPOINT;
+
+                HttpResponseMessage response =
+                       await _httpClient.PostAsync(url, byteArrayContent);
+
+                if (!response.IsSuccessStatusCode)
+                    ModelState.AddModelError(null, "Erro ao processar a solicitacao");
+
+                return RedirectToAction("Index");
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+        }
+
+        public async Task<IActionResult> Delete(int id)
+        {
+            ClienteViewModel cliente = await Pesquisar(id);
+
+            if (cliente == null)
+                return NotFound();
+
+            return View(cliente);
+        }
+
+
+
+        public async Task<IActionResult> Delete(string ClienteId)
+        {
+
+            int id = Convert.ToInt32(ClienteId); //int32.Parse(ClienteId)
+            string url = $"{ENDPOINT}{id}";
+
+            HttpResponseMessage response =
+                           await _httpClient.DeleteAsync(url);
+
+            if (!response.IsSuccessStatusCode)
+                ModelState.AddModelError(null, "Erro ao processar a solicitacao");
+            return RedirectToAction("Index");
+        }
+
+
+        #region Metodos auxilares
         private async Task<ClienteViewModel> Pesquisar(int id)
         {
             try
@@ -120,5 +189,7 @@ namespace ProjetoFinanceiro.Web.Controllers
                 throw ex;
             }
         }
+
+        #endregion
     }
 }
