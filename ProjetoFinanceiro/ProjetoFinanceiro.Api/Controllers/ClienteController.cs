@@ -11,13 +11,22 @@ namespace ProjetoFinanceiro.Api.Controllers
     [ApiController]
     public class ClienteController : ControllerBase
     {
+        #region Propriedades
         private readonly ClienteService _clienteService;
 
+        #endregion
+
+
+        #region Construtores
         public ClienteController(ClienteService clienteService)
         {
             _clienteService = clienteService;
         }
 
+        #endregion
+
+
+        #region Metodos
         [HttpGet]
         public List<ClienteDto> Get()
         {
@@ -117,7 +126,7 @@ namespace ProjetoFinanceiro.Api.Controllers
             }
         }
 
-
+        #endregion
 
         //public string Get()
         //{
