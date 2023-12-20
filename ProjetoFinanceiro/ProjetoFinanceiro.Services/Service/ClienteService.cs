@@ -39,6 +39,8 @@ namespace ProjetoFinanceiro.Services.Service
 
         public void Excluir(int Id)
         {
+            if (Id == 0)
+                throw new Exception("è necessario informar o id para exclusão!");
             _clienteRepository.Excluir(Id);
         }
     }

@@ -8,11 +8,11 @@ namespace ProjetoFinanceiro.Domain.Configuration
 {
     public interface IApiConfig
     {
-        ConnectionStrings connectionString { get; set; }
+        ConnectionStrings ConnectionString { get; set; }
     }
     public class ApiConfig : IApiConfig
     {
-        public ConnectionStrings connectionString { get; set; }
+        public ConnectionStrings ConnectionString { get; set; }
 
     }
 

@@ -11,7 +11,7 @@ namespace ProjetoFinanceiro.Domain.Entities
     {
 
         public int Clienteid { get; set; }
-        public string Nome { get;set; }
+        public string Nome { get; set; }
         public string Cpf { get; set; }
 
         public ClienteDto ConverterParaDto()
@@ -19,23 +19,31 @@ namespace ProjetoFinanceiro.Domain.Entities
             return new ClienteDto
             {
                 Clienteid = this.Clienteid,
-                Nome = this.Nome,   
+                Nome = this.Nome,
                 Cpf = this.Cpf
             };
         }
 
-        public static List<ClienteDto> ConverterParaDto(List<Cliente> clientes) 
-           {
-            List<ClienteDto> clienteDtos= new List<ClienteDto>();   
+        public static List<ClienteDto> ConverterParaDto(List<Cliente> clientes)
+        {
+            List<ClienteDto> clienteDtos = new List<ClienteDto>();
 
             foreach (Cliente cliente in clientes)
             {
                 ClienteDto dto = cliente.ConverterParaDto();
-                clienteDtos.Add(dto);   
+                clienteDtos.Add(dto);
             }
 
             return clienteDtos;
         }
+
+
+        //nao esta em uso
+        ////////////public void ValidarExclusaoCliente()
+        ////////////{
+        ////////////    if (this.Clienteid == 0)
+        ////////////        throw new Exception("è necessario informar o id para exclusão!");
+        ////////////}
 
         //private int Clienteid;
 

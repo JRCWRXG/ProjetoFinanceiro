@@ -1,4 +1,5 @@
-﻿using ProjetoFinanceiro.Domain.Entities;
+﻿using ProjetoFinanceiro.Domain.Configuration;
+using ProjetoFinanceiro.Domain.Entities;
 using ProjetoFinanceiro.Domain.Enums;
 using ProjetoFinanceiro.Domain.Setup;
 using ProjetoFinanceiro.Infrastructure.Contexts;
@@ -14,13 +15,31 @@ namespace ProjetoFinanceiro.Infrastructure.Repositories
     {
 
         private readonly IContext _context;
+        private readonly IApiConfig _apiConfig;
+         
 
-        public ClienteRepository()
+        public ClienteRepository(IApiConfig apiConfig)
         {
-            if (ConfiguracoesApp.SELECTED_DATABASE.Equals(DataBaseTypes.Fake))
+            _apiConfig = apiConfig;
+
+            switch (ConfiguracoesApp.SELECTED_DATABASE)
             {
-                _context = new FakeContext();
+                case DataBaseTypes.Fake:
+                    _context = new FakeContext();
+                    break;
+
+                case DataBaseTypes.SqlServer:
+                    _context = new SqlServerContext(_apiConfig);
+                    break;
+
             }
+
+
+
+            //if (ConfiguracoesApp.SELECTED_DATABASE.Equals(DataBaseTypes.Fake))
+            //{
+            //    _context = new FakeContext();
+            //}
         }
 
         public void Atualizar(Cliente cliente)
@@ -30,12 +49,12 @@ namespace ProjetoFinanceiro.Infrastructure.Repositories
 
         public void Excluir(int Id)
         {
-           _context.DeleteCliente(Id);
+            _context.DeleteCliente(Id);
         }
 
         public List<Cliente> Listar()
         {
-           return _context.ReadClientes();
+            return _context.ReadClientes();
         }
 
         public Cliente Pesquisar(int Id)
@@ -45,8 +64,12 @@ namespace ProjetoFinanceiro.Infrastructure.Repositories
 
         public void Salvar(Cliente cliente)
         {
-            cliente.Clienteid = _context.NextId();  
-           _context.CreateCliente(cliente); 
+            if (ConfiguracoesApp.SELECTED_DATABASE.Equals(DataBaseTypes.Fake))
+            {
+                cliente.Clienteid = _context.NextId();
+            }
+           
+            _context.CreateCliente(cliente);
         }
     }
 }

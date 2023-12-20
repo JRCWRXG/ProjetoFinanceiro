@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProjetoFinanceiro.Infrastructure.Contexts
+namespace ProjetoFinanceiro.Infrastructure.Connection
 {
     public class ConnectionManager
     {

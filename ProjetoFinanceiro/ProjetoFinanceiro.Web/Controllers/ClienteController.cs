@@ -150,7 +150,7 @@ namespace ProjetoFinanceiro.Web.Controllers
 
 
 
-        public async Task<IActionResult> Delete(string ClienteId)
+        public async Task<IActionResult> Delete2(string ClienteId)
         {
 
             int id = Convert.ToInt32(ClienteId); //int32.Parse(ClienteId)

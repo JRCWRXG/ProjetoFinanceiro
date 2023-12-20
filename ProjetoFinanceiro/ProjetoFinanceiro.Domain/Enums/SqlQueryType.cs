@@ -6,11 +6,12 @@ using System.Threading.Tasks;
 
 namespace ProjetoFinanceiro.Domain.Enums
 {
-    public enum DataBaseTypes
+    public enum SqlQueryType
     {
-        Fake,
-        MySql,
-        MongoDb,
-        SqlServer
+        Cadastrar_Cliente,
+        Autualizar_Cliente,
+        Excluir_Cliente,
+        Listar_Cliente,
+        Pesquisar_Cliente
     }
 }

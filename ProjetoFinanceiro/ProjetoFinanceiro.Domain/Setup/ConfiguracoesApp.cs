@@ -9,6 +9,6 @@ namespace ProjetoFinanceiro.Domain.Setup
 {
     public static class ConfiguracoesApp
     {
-        public static DataBaseTypes SELECTED_DATABASE = DataBaseTypes.Fake;
+        public static DataBaseTypes SELECTED_DATABASE = DataBaseTypes.SqlServer;
     }
 }

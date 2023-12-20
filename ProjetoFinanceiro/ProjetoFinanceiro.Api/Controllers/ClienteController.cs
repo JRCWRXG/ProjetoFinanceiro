@@ -14,7 +14,7 @@ namespace ProjetoFinanceiro.Api.Controllers
     {
         #region Propriedades
         private readonly ClienteService _clienteService;
-        private readonly IApiConfig _config;
+        private readonly IApiConfig _config;  // pode remover caso queira pois nao esta sendo mais usado
 
         #endregion
 
@@ -30,6 +30,7 @@ namespace ProjetoFinanceiro.Api.Controllers
 
 
         #region Actions
+
         [HttpGet]
         public List<ClienteDto> Get()
         {
@@ -92,12 +93,14 @@ namespace ProjetoFinanceiro.Api.Controllers
             }
         }
         [HttpPut]
+      
+        
         public string Put([FromBody]ClienteDto clienteDto) 
         {
             try
             {
                 Cliente cliente = clienteDto.ConverterParaEntidade();
-                _clienteService.Salvar(cliente);
+                _clienteService.Atualizar(cliente);
 
 
                 return $"Cliente {cliente.Nome} atualizado com sucesso, id  {cliente.Clienteid}";

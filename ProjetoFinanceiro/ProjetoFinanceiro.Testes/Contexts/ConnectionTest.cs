@@ -1,5 +1,5 @@
 ﻿using Microsoft.Extensions.Configuration;
-using ProjetoFinanceiro.Infrastructure.Contexts;
+using ProjetoFinanceiro.Infrastructure.Connection;
 using System;
 using System.Collections.Generic;
 using System.Data;
